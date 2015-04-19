@@ -70,16 +70,16 @@ nrowsNA <- nrow(activitydata) - sum(complete.cases(activitydata))
 ```
 The number of rows with NA in steps are **2304**.
 
-Replace all days with NA in number of steps with the mean steps across all days. Create a new data table calld *filledactivitydata* to contain the filled data.
+Replace all days with NA in *number of steps* with the mean number of step  across all days (for the specific time interval). Create a new data table called *filledactivitydata* to contain the filled data.
 
 ```r
 datesNA<-activitydata[is.na(activitydata$steps),]$date
-daysindata<-unique(activitydata$date)
-filledactivitydata <- activitydata
-for(i in 1:length(datesNA))
+dateswithNAdata<-unique(datesNA)       ## determine the unique dates with NA in 'steps'
+filledactivitydata <- activitydata  ## Make a copy of the original data
+for(i in 1:length(dateswithNAdata))
 {
     filledactivitydata[filledactivitydata$date == 
-                            datesNA[i],]$steps<-meanstepsalldays$steps
+                            dateswithNAdata[i],]$steps<-meanstepsalldays$steps
 }
 ```
 
